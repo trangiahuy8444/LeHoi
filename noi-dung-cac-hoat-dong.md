@@ -1,25 +1,110 @@
 # NỘI DUNG CHI TIẾT CÁC HOẠT ĐỘNG
 
-Tài liệu mô tả đầy đủ nội dung từng hoạt động trong chương trình **Sắc Màu Lễ Hội Quê Hương**, phục vụ giáo viên và người tổ chức.
+Tài liệu mô tả đầy đủ nội dung và cấu trúc dự án **Sắc Màu Lễ Hội Quê Hương**, phục vụ giáo viên và người tổ chức.
 
 ---
 
-## Mục lục
+## Tổng quan dự án
 
-1. [Hoạt động 1: Giai điệu (Thanh âm Di Sản)](#1-hoạt-động-1-giai-điệu-thanh-âm-di-sản)
-2. [Hoạt động 2: Tinh mắt (Nhìn hình đoán lễ)](#2-hoạt-động-2-tinh-mắt-nhìn-hình-đoán-lễ)
-3. [Hoạt động 3: Thông thái (Dữ kiện logic)](#3-hoạt-động-3-thông-thái-dữ-kiện-logic)
-4. [Hoạt động 4: Ô chữ bí mật (Từ khóa vàng)](#4-hoạt-động-4-ô-chữ-bí-mật-từ-khóa-vàng)
-5. [Hoạt động 5: Trắc nghiệm tổng hợp](#5-hoạt-động-5-trắc-nghiệm-tổng-hợp)
-6. [Thông điệp](#6-thông-điệp)
+| Mục | Nội dung |
+|-----|----------|
+| **Tên chương trình** | Sắc Màu Lễ Hội Quê Hương |
+| **Thể loại** | Ứng dụng web một trang (SPA) — Hoạt động trải nghiệm, hướng nghiệp |
+| **Mục tiêu bài học** | Nhận diện, kể tên và hiểu ý nghĩa các lễ hội truyền thống tiêu biểu tại quê hương. |
+| **Tagline** | "Hành trình khám phá và gìn giữ bản sắc văn hóa dân tộc" |
+| **Công nghệ** | HTML, CSS (Tailwind), JavaScript; Chart.js (CDN); Wayground (quiz nhúng). Dữ liệu trong `shared/data.js`, logic trong `shared/common.js`, định tuyến trong `router.js`. |
+| **Chạy thử** | Mở file `index.html` bằng trình duyệt (Chrome/Edge khuyên dùng). Có thể kết nối máy chiếu cho hội trường. |
 
 ---
 
-## 1. Hoạt động 1: Giai điệu (Thanh âm Di Sản)
+## Cấu trúc thư mục và file
+
+```
+lehoi/
+├── index.html              # Trang chính, menu, sidebar bảng điểm, modal cộng điểm
+├── router.js               # Định tuyến (#intro, #sounds, #visuals, #logic, #crossword, #quiz, #message-final, #final-result)
+├── noi-dung-cac-hoat-dong.md
+├── shared/
+│   ├── data.js             # Dữ liệu: âm thanh, ảnh, 4 thẻ Giai điệu, 4 thẻ Tinh mắt, 2 thử thách Thông thái, 6 hàng ô chữ
+│   ├── common.js           # Logic: carousel, bảng điểm nhóm, tạo slide/thẻ/ô chữ, âm nhạc nền
+│   └── common.css          # Style bổ sung
+├── pages/
+│   ├── intro.html          # Giới thiệu chương trình
+│   ├── logic.html          # Khung trang Thông thái (nội dung do JS render từ data.js)
+│   ├── crossword.html     # Trang Ô chữ bí mật (grid + câu hỏi do JS render)
+│   ├── quiz.html           # Trắc nghiệm (iframe Wayground)
+│   ├── message-final.html  # Thông điệp cuối
+│   ├── message.html        # (trang phụ, không dùng trong menu chính)
+│   └── final-result.html   # Kết quả cuối cùng — Nhóm Chiến Thắng
+├── image/                  # Ảnh dùng cho Giai điệu (gợi ý) và Tinh mắt
+└── sound/                  # File MP3 cho 4 thẻ âm thanh
+```
+
+**Lưu ý:** Trang **1. Giai điệu** và **2. Tinh mắt** không dùng file HTML trong `pages/` mà do `router.js` build HTML từ `buildSoundsPageHtml()` / `buildVisualsPageHtml()` và dữ liệu trong `shared/data.js`.
+
+---
+
+## Điều hướng và giao diện chung
+
+### Menu chính (nav)
+
+| Thứ tự | Nhãn menu | Route / Trang |
+|--------|-----------|----------------|
+| 1 | Giới Thiệu | `#intro` → `pages/intro.html` |
+| 2 | 1. Giai Điệu | `#sounds` → HTML build từ JS |
+| 3 | 2. Tinh Mắt | `#visuals` → HTML build từ JS |
+| 4 | 3. Thông Thái | `#logic` → `pages/logic.html` |
+| 5 | 4. Ô Chữ | `#crossword` → `pages/crossword.html` |
+| 6 | 5. Trắc nghiệm | `#quiz` → `pages/quiz.html` |
+| 7 | Thông Điệp | `#message-final` → `pages/message-final.html` |
+
+### Bảng xếp hạng (sidebar + modal)
+
+- **6 nhóm** (tên lớp): **12A12**, **12A13**, **12A14**, **12A15**, **12A16**, **12A17**.
+- Điểm được lưu trong `localStorage` (key: `groupScores`), tải lại trang vẫn giữ điểm.
+- **Modal "Cộng Điểm Cho Nhóm":** Chọn nhóm (12A12–12A17), chọn hoạt động (Giai điệu / Tinh mắt / Thông thái / Ô chữ), nhập số điểm, nút **Cộng Điểm** hoặc **Trừ Điểm**.
+- **Modal "Bảng Xếp Hạng Đầy Đủ":** Xem toàn bộ 6 nhóm, nút **Xác Nhận Nhóm Thắng Cuộc** → chuyển sang trang Kết quả cuối cùng (`#final-result`), hiển thị **Nhóm Chiến Thắng** và điểm.
+
+### Trang Kết quả cuối cùng (`final-result.html`)
+
+- Tiêu đề: **Kết Quả Cuối Cùng**.
+- Hiển thị **Nhóm Chiến Thắng:** tên nhóm (12A12–12A17) và điểm số.
+- Nút **Xem Bảng Xếp Hạng Đầy Đủ** để quay lại modal bảng điểm.
+
+---
+
+## Mục lục nội dung chi tiết
+
+1. [Trang Giới thiệu](#1-trang-giới-thiệu)
+2. [Hoạt động 1: Giai điệu (Thanh âm Di Sản)](#2-hoạt-động-1-giai-điệu-thanh-âm-di-sản)
+3. [Hoạt động 2: Tinh mắt (Nhìn hình đoán lễ)](#3-hoạt-động-2-tinh-mắt-nhìn-hình-đoán-lễ)
+4. [Hoạt động 3: Thông thái (Dữ kiện logic)](#4-hoạt-động-3-thông-thái-dữ-kiện-logic)
+5. [Hoạt động 4: Ô chữ bí mật (Từ khóa vàng)](#5-hoạt-động-4-ô-chữ-bí-mật-từ-khóa-vàng)
+6. [Hoạt động 5: Trắc nghiệm tổng hợp](#6-hoạt-động-5-trắc-nghiệm-tổng-hợp)
+7. [Trang Thông điệp](#7-trang-thông-điệp)
+8. [Tài nguyên (file âm thanh, hình ảnh, video)](#8-tài-nguyên)
+
+---
+
+## 1. Trang Giới thiệu
+
+**File:** `pages/intro.html`  
+**Route:** `#intro` (mặc định khi mở app).
+
+| Mục | Nội dung |
+|-----|----------|
+| **Tiêu đề** | Sắc Màu Lễ Hội Quê Hương |
+| **Phụ đề** | Hoạt động trải nghiệm, hướng nghiệp |
+| **Tagline** | "Hành trình khám phá và gìn giữ bản sắc văn hóa dân tộc" |
+| **Mục tiêu bài học** | Nhận diện, kể tên và hiểu ý nghĩa các lễ hội truyền thống tiêu biểu tại quê hương. |
+
+---
+
+## 2. Hoạt động 1: Giai điệu (Thanh âm Di Sản)
 
 **Mục đích:** Nghe âm thanh đặc trưng, đoán lễ hội; hướng về tên lễ hội và ý nghĩa văn hóa.
 
-**Cách chơi:** Carousel 4 thẻ. Mỗi thẻ có nút phát âm thanh, câu hỏi gợi mở, nút **Gợi ý** (xem hình ảnh), nút **Đáp án** (xem nội dung đầy đủ). Một số thẻ có kèm video giới thiệu (đặt sau phần Góc Khám Phá).
+**Cách chơi:** Carousel 4 thẻ. Mỗi thẻ có nút phát âm thanh, câu hỏi gợi mở, nút **Gợi ý** (xem hình ảnh), nút **Đáp án** (xem nội dung đầy đủ). Một số thẻ có kèm video giới thiệu (đặt sau phần Góc Khám Phá). Dữ liệu nguồn: `shared/data.js` → `soundSlides`, `audioSources`, `imageSources`.
 
 ---
 
@@ -28,7 +113,8 @@ Tài liệu mô tả đầy đủ nội dung từng hoạt động trong chươn
 | Mục | Nội dung |
 |-----|----------|
 | **Âm thanh** | Tiếng trống múa lân |
-| **Hình gợi ý** | Ảnh minh họa (maxresdefault.jpg) |
+| **File âm thanh** | `./sound/Tiếng trống (lân) - bii hương.mp3` |
+| **Hình gợi ý** | `./image/maxresdefault.jpg` |
 | **Câu hỏi** | Âm thanh này là linh hồn của những dịp lễ tết lớn nào trong năm? |
 | **Tiêu đề đáp án** | TẾT NGUYÊN ĐÁN & TRUNG THU |
 | **Nội dung bổ trợ** | Hoạt động đặc trưng: Múa Lân Sư Rồng. |
@@ -43,14 +129,15 @@ Tài liệu mô tả đầy đủ nội dung từng hoạt động trong chươn
 | Mục | Nội dung |
 |-----|----------|
 | **Âm thanh** | Tiếng Cồng Chiêng |
-| **Hình gợi ý** | Ảnh lễ hội (521-kon_tum...) |
+| **File âm thanh** | `./sound/Không gian văn hóa cồng chiêng Tây Nguyên! - Khương Duy Pleiku Gia Lai.mp3` |
+| **Hình gợi ý** | `./image/521-kon_tum-phuocsonkt@gmailcom-le_hoi_mung_lua_moi.jpg` |
 | **Câu hỏi** | Âm vang này được ví là 'tiếng nói' của đại ngàn, nối kết con người với thần linh. Nó là linh hồn của các lễ hội tại vùng đất nào? |
 | **Tiêu đề đáp án** | LỄ HỘI VĂN HÓA CỒNG CHIÊNG |
 | **Dấu hiệu nhận biết** | Không gian văn hóa Tây Nguyên. |
 | **Giới thiệu** | Không chỉ là nhạc cụ, Cồng Chiêng được coi là "ngôn ngữ" thiêng liêng để người Tây Nguyên giao tiếp với Giàng (Trời), thần linh và tổ tiên. Âm thanh cồng chiêng khi trầm hùng, khi thánh thót, gắn liền với mọi cột mốc trong vòng đời của con người: từ lễ thổi tai khi chào đời đến lễ bỏ mả khi về với đất. |
 | **Ý nghĩa** | • **Tín ngưỡng:** Khẳng định mối quan hệ mật thiết giữa con người - thiên nhiên - thần linh.<br>• **Cộng đồng:** Là "chất keo" gắn kết các thành viên trong buôn làng; tiếng chiêng còn vang là bản sắc còn giữ. |
 | **Góc Khám Phá** | Mỗi chiếc cồng, chiêng đều có một vị thần trú ngụ. Người Tây Nguyên tin rằng cồng chiêng càng cổ thì quyền lực của vị thần càng cao. |
-| **Video** | Link: https://www.youtube.com/watch?v=enE8Iy9NRw8 |
+| **Video** | https://www.youtube.com/watch?v=enE8Iy9NRw8 |
 
 ---
 
@@ -59,7 +146,8 @@ Tài liệu mô tả đầy đủ nội dung từng hoạt động trong chươn
 | Mục | Nội dung |
 |-----|----------|
 | **Âm thanh** | Nhạc hào hùng "Dòng máu Lạc Hồng" |
-| **Hình gợi ý** | Ảnh Giỗ Tổ Hùng Vương |
+| **File âm thanh** | `./sound/DÒNG MÁU LẠC HỒNG  ĐAN TRƯỜNG  GIỔ TỔ HÙNG VƯƠNG 21_04_2021 - HT PRODUCTIONS.mp3` |
+| **Hình gợi ý** | `./image/gio-to-hung-vuong-nguon-goc-y-nghia-ngay-mung-10-thang-3-202302211620428770.jpg` |
 | **Câu hỏi** | Lời bài hát hào hùng này nhắc nhở con cháu Rồng Tiên nhớ về ngày giỗ chung của cả dân tộc. Đó là lễ hội nào? |
 | **Tiêu đề đáp án** | GIỖ TỔ HÙNG VƯƠNG (LỄ HỘI ĐỀN HÙNG) |
 | **Dấu hiệu nhận biết** | Mùng 10 tháng 3 Âm lịch. |
@@ -74,22 +162,23 @@ Tài liệu mô tả đầy đủ nội dung từng hoạt động trong chươn
 | Mục | Nội dung |
 |-----|----------|
 | **Âm thanh** | Dân ca Bắc Bling / Quan họ |
-| **Hình gợi ý** | Ảnh giới thiệu Quan họ Bắc Ninh |
+| **File âm thanh** | `./sound/[ KARAOKE BEAT CHUẨN ] BẮC BLING ( BẮC NINH ) - HOÀ MINZY FT NS XUÂN HINH x MASEW x TUẤN CRY - Hòa Minzy.mp3` |
+| **Hình gợi ý** | `./image/gioi-thieu-ve-quan-ho-bac-ninh.jpg` |
 | **Câu hỏi** | Những câu hát giao duyên tình tứ, 'người ơi người ở đừng về' là đặc sản của vùng Kinh Bắc. Đây là lễ hội nổi tiếng nào? |
 | **Tiêu đề đáp án** | HỘI LIM (BẮC NINH) |
 | **Dấu hiệu nhận biết** | Hát Dân ca Quan họ. |
 | **Giới thiệu** | Hội Lim là không gian diễn xướng đặc sắc nhất của Dân ca Quan họ Bắc Ninh. Khác với các loại hình khác, Quan họ là lối hát giao duyên tinh tế, trọng tình trọng nghĩa, nơi các liền anh liền chị không chỉ hát mà còn "chơi" quan họ bằng lối ứng xử lịch thiệp, khiêm nhường. |
 | **Ý nghĩa** | • **Nghệ thuật:** Đỉnh cao của thơ ca dân gian và nghệ thuật luyến láy.<br>• **Nhân văn:** Đề cao tình người, sự thủy chung và nét thanh lịch của người Kinh Bắc ("Người ơi người ở đừng về"). |
 | **Góc Khám Phá** | Người quan họ không gọi là 'hát quan họ' mà gọi là 'chơi quan họ', thể hiện sự tinh tế, thanh lịch và coi trọng văn hóa ứng xử trong giao duyên. |
-| **Video** | Link: https://www.youtube.com/watch?v=155RebrEZOA |
+| **Video** | https://www.youtube.com/watch?v=155RebrEZOA |
 
 ---
 
-## 2. Hoạt động 2: Tinh mắt (Nhìn hình đoán lễ)
+## 3. Hoạt động 2: Tinh mắt (Nhìn hình đoán lễ)
 
 **Mục đích:** Quan sát hình ảnh và gợi ý, đoán tên lễ hội; củng cố kiến thức qua phần giới thiệu và ý nghĩa.
 
-**Cách chơi:** Carousel 4 thẻ. Mỗi thẻ có một hình ảnh, nút **Gợi ý** (xem câu gợi ý), nút **Đáp án** (xem tên lễ hội, giới thiệu, ý nghĩa; một số thẻ có video).
+**Cách chơi:** Carousel 4 thẻ. Mỗi thẻ có một hình ảnh, nút **Gợi ý** (xem câu gợi ý), nút **Đáp án** (xem tên lễ hội, giới thiệu, ý nghĩa; một số thẻ có video). Dữ liệu: `shared/data.js` → `visualSlides`, `visualGameImages`.
 
 ---
 
@@ -97,7 +186,7 @@ Tài liệu mô tả đầy đủ nội dung từng hoạt động trong chươn
 
 | Mục | Nội dung |
 |-----|----------|
-| **Hình ảnh** | Cầu dừa đủ xài (Cau_dua_du_xai.jpeg) |
+| **Hình ảnh** | `./image/Cau_dua_du_xai.jpeg` |
 | **Gợi ý** | "Cầu vừa đủ xài" (Gợi nhớ đến mâm ngũ quả) |
 | **Đáp án** | Tết Nguyên Đán |
 | **Giới thiệu** | Mâm ngũ quả là lễ vật trang trọng nhất trên bàn thờ gia tiên ngày Tết. Nếu người Bắc chọn 5 màu theo thuyết Ngũ hành (Kim-Mộc-Thủy-Hỏa-Thổ) để cầu sự hài hòa, thì người Nam lại chọn quả theo cách chơi chữ "Cầu - Dừa - Đủ - Xài - Sung" để gửi gắm ước vọng thực tế về một năm mới no đủ. |
@@ -109,7 +198,7 @@ Tài liệu mô tả đầy đủ nội dung từng hoạt động trong chươn
 
 | Mục | Nội dung |
 |-----|----------|
-| **Hình ảnh** | Lễ hội đua thuyền (lehoiduathuyen.jpeg) |
+| **Hình ảnh** | `./image/lehoiduathuyen.jpeg` |
 | **Gợi ý** | "Thuyền rồng lướt sóng, cờ xí rợp trời..." |
 | **Đáp án** | Lễ Hội Đua Thuyền |
 | **Giới thiệu** | Lễ hội này thường diễn ra ở các vùng sông nước, ven biển vào đầu xuân. Những chiếc thuyền được tạo dáng hình Rồng (Long) thon dài, tượng trưng cho linh vật cai quản nguồn nước. Cuộc đua không chỉ là thi thố sức khỏe mà là nghi lễ "đánh thức" dòng sông, cầu xin thần nước ban tặng mưa thuận gió hòa. |
@@ -121,12 +210,12 @@ Tài liệu mô tả đầy đủ nội dung từng hoạt động trong chươn
 
 | Mục | Nội dung |
 |-----|----------|
-| **Hình ảnh** | Lễ hội Chùa Hương (lehoichuahuong.jpg) |
+| **Hình ảnh** | `./image/lehoichuahuong.jpg` |
 | **Gợi ý** | "Lễ hội kéo dài nhất cả nước, suối Yến, động Hương Tích..." |
 | **Đáp án** | Lễ Hội Chùa Hương |
 | **Giới thiệu** | Đây là lễ hội có thời gian kéo dài nhất nước ta (3 tháng xuân). Hình ảnh dòng suối Yến tấp nập thuyền bè là biểu tượng của hành trình "cõi trần về cõi Phật". Du khách đến đây không chỉ để lễ bái tại động Hương Tích ("Nam thiên đệ nhất động") mà còn để hòa mình vào non nước hữu tình, tìm sự thanh thản trong tâm hồn. |
 | **Ý nghĩa** | Sự giao thoa tuyệt vời giữa Tín ngưỡng thờ Phật và tín ngưỡng thờ Thần tự nhiên (thờ đá, thờ hang động) của người Việt. |
-| **Video** | Link: https://www.youtube.com/watch?v=9khO62A3kpA |
+| **Video** | https://www.youtube.com/watch?v=9khO62A3kpA |
 
 ---
 
@@ -134,20 +223,22 @@ Tài liệu mô tả đầy đủ nội dung từng hoạt động trong chươn
 
 | Mục | Nội dung |
 |-----|----------|
-| **Hình ảnh** | Lễ hội Bài Chòi (lehoibaichoi.jpg) |
+| **Hình ảnh** | `./image/lehoibaichoi.jpg` |
 | **Gợi ý** | "Chòi con, hiệu lệnh, câu thai..." |
 | **Đáp án** | Lễ Hội Bài Chòi |
 | **Giới thiệu** | Bài Chòi vừa là trò chơi dân gian vui nhộn, vừa là nghệ thuật diễn xướng độc đáo của miền Trung. Các "anh Hiệu" (người hô thai) sẽ dùng các làn điệu hò, vè hóm hỉnh để hô tên con bài. Người chơi ngồi trên các chòi tre cao, ai có con bài trùng khớp sẽ thắng. Đây là "món ăn tinh thần" không thể thiếu dịp đầu xuân. |
 | **Ý nghĩa** | Gìn giữ phương ngữ, nghệ thuật thơ ca dân gian và tạo không gian gắn kết cộng đồng làng xã bình dị, vui tươi. |
-| **Video** | Link: https://www.youtube.com/watch?v=ywahy4ce5tQ |
+| **Video** | https://www.youtube.com/watch?v=ywahy4ce5tQ |
 
 ---
 
-## 3. Hoạt động 3: Thông thái (Dữ kiện logic)
+## 4. Hoạt động 3: Thông thái (Dữ kiện logic)
 
-**Mục đích:** Dựa vào 3 dữ kiện cho sẵn để suy luận ra tên lễ hội; mở rộng qua phần giới thiệu, ý nghĩa, Góc Khám Phá và video (nếu có).
+**File:** `pages/logic.html` — nội dung thử thách do JS render từ `shared/data.js` → `logicChallenges`.
 
-**Cách chơi:** 2 thử thách. Mỗi thử thách có 3 dữ kiện (ô riêng), nút **Hiện đáp án** để xem tên lễ hội và nội dung bổ sung.
+**Mục đích:** Dựa vào 3 dữ kiện cho sẵn để suy luận ra tên lễ hội; mở rộng qua phần giới thiệu, ý nghĩa, Góc Khám Phá và video.
+
+**Luật chơi (trên trang):** Quan sát cả 3 dữ kiện → Thảo luận nhanh trong nhóm → Đưa ra đáp án chính xác nhất. Mỗi thử thách có nút **Hiện đáp án** để xem tên lễ hội và nội dung bổ sung.
 
 ---
 
@@ -162,7 +253,7 @@ Tài liệu mô tả đầy đủ nội dung từng hoạt động trong chươn
 | **Giới thiệu** | Tịch Điền Đọi Sơn là lễ hội "xuống đồng" mang tính biểu tượng cao nhất của nền văn minh lúa nước. Sự kiện Vua Lê Đại Hành đích thân cởi hoàng bào, lội ruộng cày những đường cày đầu tiên vào năm 987 là một tuyên ngôn lịch sử: Nhà vua không chỉ trị quốc mà còn trọng nông, đồng cam cộng khổ cùng dân. |
 | **Ý nghĩa** | Tôn vinh giá trị của lao động, khuyến khích sản xuất nông nghiệp và cầu mong mùa màng bội thu, quốc thái dân an. |
 | **Góc Khám Phá** | Những chú trâu tham gia lễ hội được tuyển chọn rất kỹ lưỡng và được các họa sĩ vẽ trang trí sặc sỡ lên mình, gọi là "Trâu Lá Đa", tạo nên nét độc đáo riêng biệt cho lễ hội này. |
-| **Video** | Link: https://www.youtube.com/watch?v=yr_eVzo3Oog |
+| **Video** | https://www.youtube.com/watch?v=yr_eVzo3Oog |
 
 ---
 
@@ -177,17 +268,17 @@ Tài liệu mô tả đầy đủ nội dung từng hoạt động trong chươn
 | **Giới thiệu** | Lễ hội Gióng (tại đền Sóc và đền Phù Đổng) được ví như một "kịch trường dân gian" khổng lồ, nơi hàng trăm người dân địa phương cùng tham gia diễn lại trận đánh hào hùng của Thánh Gióng chống giặc Ân. Không có gươm đao thật, trận chiến được mô phỏng đầy nghệ thuật qua các nghi thức như rước kiệu, múa cờ, đánh trận giả. |
 | **Ý nghĩa** | Giáo dục lòng yêu nước nồng nàn, ý chí quật cường chống ngoại xâm và khát vọng hòa bình của dân tộc Việt Nam. |
 | **Góc Khám Phá** | Hội Gióng được ví như một "kịch trường dân gian" rộng lớn với hàng trăm vai diễn, đạo cụ, y phục quy mô, tất cả đều do chính người dân địa phương đóng vai, không cần diễn viên chuyên nghiệp. |
-| **Video** | Link: https://www.youtube.com/watch?v=CtBdgihZVPU |
+| **Video** | https://www.youtube.com/watch?v=CtBdgihZVPU |
 
 ---
 
-## 4. Hoạt động 4: Ô chữ bí mật (Từ khóa vàng)
+## 5. Hoạt động 4: Ô chữ bí mật (Từ khóa vàng)
 
-**Mục đích:** Giải 6 hàng ngang để lấy 6 chữ cái vàng, ghép thành **TỪ KHÓA DỌC: BẢN SẮC**.
+**File:** `pages/crossword.html`. Grid và danh sách câu hỏi do JS render từ `shared/data.js` → `crosswordRows`.
 
-**Bố cục:** Trên màn hình lớn: bên trái là 6 câu hỏi, bên phải là 6 hàng ô chữ; chữ khóa vàng thẳng một cột (cột 5).
+**Mục đích:** Giải 6 hàng ngang để lấy 6 chữ cái vàng (cột 5), ghép thành **TỪ KHÓA DỌC: BẢN SẮC**.
 
----
+**Bố cục:** Trái: 6 câu hỏi + nút **Mở Đáp Án Hàng Này** (khi chọn hàng) + nút **🔐 Mở Từ Khóa Dọc**. Phải: 6 hàng ô chữ. Sau khi nhấn **Mở Từ Khóa Dọc**, hiện khối: **Từ khóa của chương trình** → **BẢN SẮC** → *"Giữ gìn truyền thống là giữ gìn BẢN SẮC — nét riêng của dân tộc, nguồn cội của mỗi con người."*
 
 ### Từ khóa bí mật
 
@@ -255,20 +346,22 @@ Tài liệu mô tả đầy đủ nội dung từng hoạt động trong chươn
 
 ---
 
-### Thông điệp từ khóa
+### Thông điệp từ khóa (hiện sau khi nhấn "Mở Từ Khóa Dọc")
 
-Sau khi mở từ khóa dọc, hiển thị:
-
+- **Tiêu đề phụ:** Từ khóa của chương trình  
 - **Từ khóa:** BẢN SẮC  
 - **Thông điệp:** Giữ gìn truyền thống là giữ gìn **BẢN SẮC** — nét riêng của dân tộc, nguồn cội của mỗi con người.
 
 ---
 
-## 5. Hoạt động 5: Trắc nghiệm tổng hợp
+## 6. Hoạt động 5: Trắc nghiệm tổng hợp
+
+**File:** `pages/quiz.html`  
+**Route:** `#quiz`
 
 **Mục đích:** Củng cố kiến thức về lễ hội truyền thống sau 4 hoạt động (Giai điệu, Tinh mắt, Thông thái, Ô chữ).
 
-**Cách thực hiện:** Học sinh làm bài trắc nghiệm trực tuyến được nhúng từ **Wayground**.
+**Cách thực hiện:** Bài trắc nghiệm trực tuyến nhúng từ **Wayground** (iframe).
 
 | Mục | Nội dung |
 |-----|----------|
@@ -281,20 +374,72 @@ Sau khi mở từ khóa dọc, hiển thị:
 
 ---
 
-## 6. Thông điệp
+## 7. Trang Thông điệp
 
-**Vị trí:** Trang cuối trước khi kết thúc chương trình.
+**File:** `pages/message-final.html`  
+**Route:** `#message-final`
 
-**Nội dung:** Trang **Thông Điệp** hiển thị thông điệp tổng kết (nội dung tùy chỉnh trong file `pages/message-final.html`), nhấn mạnh ý nghĩa giữ gìn văn hóa, bản sắc và truyền thống.
+**Vị trí:** Trang cuối trước khi kết thúc chương trình (sau Trắc nghiệm trong menu).
+
+**Nội dung hiển thị:**
+
+- Nhãn: **Thông Điệp**
+- Câu trích: *"Đừng chỉ đến lễ hội để **'check-in'**, hãy đến để **'cảm nhận'** và **'tiếp nối'**."*
+
+*(Nội dung có thể chỉnh sửa trực tiếp trong file `pages/message-final.html`.)*
 
 ---
 
-## Tài nguyên kèm theo
+## 8. Tài nguyên
 
-- **Âm thanh:** Trống lân, Cồng Chiêng, Dòng máu Lạc Hồng, Bắc Bling (Quan họ) — đường dẫn trong `shared/data.js`.
-- **Hình ảnh:** Gợi ý Giai điệu (4 ảnh), hình Tinh mắt (4 ảnh) — đường dẫn trong `shared/data.js`.
-- **Video YouTube:** Mỗi lễ hội có video (Cồng Chiêng, Hội Lim, Chùa Hương, Bài Chòi, Tịch Điền, Gióng) — link trong `shared/data.js`, hiển thị trong phần Đáp án / Hiện đáp án, đặt sau Góc Khám Phá.
+### File âm thanh (`sound/`)
+
+| Key trong data | Đường dẫn file (từ thư mục gốc) |
+|----------------|----------------------------------|
+| drum | `./sound/Tiếng trống (lân) - bii hương.mp3` |
+| gong | `./sound/Không gian văn hóa cồng chiêng Tây Nguyên! - Khương Duy Pleiku Gia Lai.mp3` |
+| epic | `./sound/DÒNG MÁU LẠC HỒNG  ĐAN TRƯỜNG  GIỔ TỔ HÙNG VƯƠNG 21_04_2021 - HT PRODUCTIONS.mp3` |
+| folk | `./sound/[ KARAOKE BEAT CHUẨN ] BẮC BLING ( BẮC NINH ) - HOÀ MINZY FT NS XUÂN HINH x MASEW x TUẤN CRY - Hòa Minzy.mp3` |
+
+### Hình ảnh — Gợi ý Giai điệu (`image/` — tham chiếu trong `imageSources`)
+
+| Index | Đường dẫn |
+|-------|-----------|
+| 0 | `./image/maxresdefault.jpg` |
+| 1 | `./image/521-kon_tum-phuocsonkt@gmailcom-le_hoi_mung_lua_moi.jpg` |
+| 2 | `./image/gio-to-hung-vuong-nguon-goc-y-nghia-ngay-mung-10-thang-3-202302211620428770.jpg` |
+| 3 | `./image/gioi-thieu-ve-quan-ho-bac-ninh.jpg` |
+
+### Hình ảnh — Tinh mắt (`image/` — tham chiếu trong `visualGameImages`)
+
+| Index | Đường dẫn |
+|-------|-----------|
+| 1 | `./image/Cau_dua_du_xai.jpeg` |
+| 2 | `./image/lehoiduathuyen.jpeg` |
+| 3 | `./image/lehoichuahuong.jpg` |
+| 4 | `./image/lehoibaichoi.jpg` |
+
+### Video YouTube (nhúng trong Đáp án / Hiện đáp án)
+
+| Hoạt động | Nội dung | URL |
+|-----------|----------|-----|
+| Giai điệu – Thẻ 2 | Cồng Chiêng | https://www.youtube.com/watch?v=enE8Iy9NRw8 |
+| Giai điệu – Thẻ 4 | Quan họ / Hội Lim | https://www.youtube.com/watch?v=155RebrEZOA |
+| Tinh mắt – Thẻ 3 | Chùa Hương | https://www.youtube.com/watch?v=9khO62A3kpA |
+| Tinh mắt – Thẻ 4 | Bài Chòi | https://www.youtube.com/watch?v=ywahy4ce5tQ |
+| Thông thái – Thử thách 1 | Tịch Điền | https://www.youtube.com/watch?v=yr_eVzo3Oog |
+| Thông thái – Thử thách 2 | Gióng | https://www.youtube.com/watch?v=CtBdgihZVPU |
 
 ---
 
-*Tài liệu được sinh từ dữ liệu ứng dụng, cập nhật lần cuối theo cấu trúc hiện tại của project.*
+## Lưu ý kỹ thuật
+
+- **Tailwind CSS & Chart.js:** Tải qua CDN trong `index.html`; cần kết nối Internet khi chạy lần đầu.
+- **Đường dẫn âm thanh / ảnh:** Tương đối với thư mục gốc (nơi đặt `index.html`). Đảm bảo thư mục `sound/` và `image/` cùng cấp với `index.html` và file tồn tại đúng tên.
+- **Điểm nhóm:** Lưu trong `localStorage` (key `groupScores`). Xóa cache / localStorage sẽ reset điểm.
+- **Wayground:** Nếu đổi bài quiz, cập nhật URL iframe trong `pages/quiz.html` và (nếu cần) link trong tài liệu này.
+- **Ô chữ:** Từ khóa dọc **BẢN SẮC** và vị trí chữ cái vàng (cột 5) được cấu hình trong `shared/data.js` qua `keyword` và `offset` của từng hàng trong `crosswordRows`.
+
+---
+
+*Tài liệu cập nhật theo toàn bộ nội dung và cấu trúc hiện tại của project.*
