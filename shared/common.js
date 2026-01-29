@@ -19,12 +19,12 @@ window.playingSlideIndex = null;
 
 // Bảng xếp hạng - Quản lý điểm số của 6 nhóm
 let groupScores = {
-    1: { name: 'Nhóm 1', score: 0, color: 'bg-red-100 border-red-400' },
-    2: { name: 'Nhóm 2', score: 0, color: 'bg-blue-100 border-blue-400' },
-    3: { name: 'Nhóm 3', score: 0, color: 'bg-green-100 border-green-400' },
-    4: { name: 'Nhóm 4', score: 0, color: 'bg-yellow-100 border-yellow-400' },
-    5: { name: 'Nhóm 5', score: 0, color: 'bg-purple-100 border-purple-400' },
-    6: { name: 'Nhóm 6', score: 0, color: 'bg-pink-100 border-pink-400' }
+    1: { name: '12A12', score: 0, color: 'bg-red-100 border-red-400' },
+    2: { name: '12A13', score: 0, color: 'bg-blue-100 border-blue-400' },
+    3: { name: '12A14', score: 0, color: 'bg-green-100 border-green-400' },
+    4: { name: '12A15', score: 0, color: 'bg-yellow-100 border-yellow-400' },
+    5: { name: '12A16', score: 0, color: 'bg-purple-100 border-purple-400' },
+    6: { name: '12A17', score: 0, color: 'bg-pink-100 border-pink-400' }
 };
 
 // Local Storage Functions
@@ -138,7 +138,7 @@ function removeScore(groupId, points = 10, activity = '') {
     }
     
     if (groupScores[groupId].score < points) {
-        if (confirm(`Nhóm ${groupId} chỉ có ${groupScores[groupId].score} điểm. Bạn có muốn đặt về 0 không?`)) {
+        if (confirm(`${groupScores[groupId].name} chỉ có ${groupScores[groupId].score} điểm. Bạn có muốn đặt về 0 không?`)) {
             groupScores[groupId].score = 0;
         } else {
             return;

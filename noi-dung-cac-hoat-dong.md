@@ -32,9 +32,9 @@ Tài liệu mô tả đầy đủ nội dung từng hoạt động trong chươn
 | **Câu hỏi** | Âm thanh này là linh hồn của những dịp lễ tết lớn nào trong năm? |
 | **Tiêu đề đáp án** | TẾT NGUYÊN ĐÁN & TRUNG THU |
 | **Nội dung bổ trợ** | Hoạt động đặc trưng: Múa Lân Sư Rồng. |
-| **Giới thiệu** | Tiếng trống "Tùng dinh dinh" dồn dập hòa cùng tiếng chũm chọe là linh hồn của nghệ thuật Múa Lân Sư Rồng. Trong văn hóa Á Đông, tiếng trống này được tin là có năng lượng dương mạnh mẽ, giúp đánh thức các thần thú (Lân, Rồng) dậy để xua đuổi tà khí và "gõ cửa" những điều may mắn đầu năm. |
-| **Ý nghĩa** | • **Tâm linh:** Tiếng trống là cầu nối xua đuổi điềm gở (Niên), đón chào thần tài.<br>• **Văn hóa:** Biểu tượng của sự thịnh vượng, hanh thông ("Đầu xuôi đuôi lọt").<br>• **Cộng đồng:** Gắn kết mọi người trong niềm hân hoan chung của dịp Tết. |
-| **Góc Khám Phá** | Múa Lân thường có ông Địa đi cùng, tay cầm quạt phe phẩy, mang mặt nạ cười, tượng trưng cho sự may mắn, niềm vui và khả năng hóa giải điều dữ thành lành. |
+| **Giới thiệu** | Tết Nguyên Đán là lễ hội cổ truyền lớn nhất và thiêng liêng nhất của người Việt. Đây là thời khắc chuyển giao giữa năm cũ và năm mới, là dịp để những người con xa quê trở về đoàn tụ dưới mái ấm gia đình, cùng nhau thắp nén hương thơm dâng lên tổ tiên. |
+| **Ý nghĩa** | • Tạ ơn ông bà, tổ tiên và các vị thần linh.<br>• Gắn kết tình thân gia đình và cộng đồng làng xã.<br>• Gửi gắm hy vọng về một năm mới bình an, sung túc. |
+| **Góc Khám Phá** | Trong ngày Tết, tiếng trống múa lân vang lên rộn rã được tin là có năng lượng mạnh mẽ để xua đuổi tà khí (con Niên) và đánh thức những điều may mắn, tài lộc gõ cửa mọi nhà. |
 
 ---
 
