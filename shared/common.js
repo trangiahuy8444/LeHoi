@@ -318,6 +318,7 @@ function createVisualSlide(slide, index) {
             <div class="space-y-5 text-base text-gray-700 w-full pb-8">
                 <div class="bg-orange-50 p-5 rounded-lg border border-orange-100"><strong class="block text-orange-800 mb-2 text-lg">📝 Giới thiệu:</strong><p class="text-base">${slide.intro}</p></div>
                 <div><strong class="block text-gray-800 mb-2 text-lg">🌸 Ý nghĩa:</strong><ul class="list-disc pl-6 space-y-2 marker:text-festive-red text-base">${slide.meaning.map(m=>`<li>${m}</li>`).join('')}</ul></div>
+                ${slide.discovery ? `<div class="bg-blue-50 p-5 rounded-lg border border-blue-100"><strong class="block text-blue-800 mb-2 flex items-center gap-2 text-lg">💡 Góc Khám Phá:</strong><p class="italic text-blue-900 text-base">${slide.discovery}</p></div>` : ''}
                 ${slide.videoUrl && getYoutubeEmbedUrl(slide.videoUrl) ? `<div class="w-full max-w-2xl mx-auto"><strong class="block text-gray-800 mb-2 text-lg">🎬 Video giới thiệu:</strong><div class="relative w-full rounded-xl overflow-hidden border border-gray-200" style="padding-bottom:56.25%"><iframe class="absolute top-0 left-0 w-full h-full" src="${getYoutubeEmbedUrl(slide.videoUrl, true)}" title="Video giới thiệu lễ hội" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div>` : ''}
             </div>
         </div>

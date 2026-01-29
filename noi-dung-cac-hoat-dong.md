@@ -136,7 +136,7 @@ lehoi/
 | **Dấu hiệu nhận biết** | Không gian văn hóa Tây Nguyên. |
 | **Giới thiệu** | Không chỉ là nhạc cụ, Cồng Chiêng được coi là "ngôn ngữ" thiêng liêng để người Tây Nguyên giao tiếp với Giàng (Trời), thần linh và tổ tiên. Âm thanh cồng chiêng khi trầm hùng, khi thánh thót, gắn liền với mọi cột mốc trong vòng đời của con người: từ lễ thổi tai khi chào đời đến lễ bỏ mả khi về với đất. |
 | **Ý nghĩa** | • **Tín ngưỡng:** Khẳng định mối quan hệ mật thiết giữa con người - thiên nhiên - thần linh.<br>• **Cộng đồng:** Là "chất keo" gắn kết các thành viên trong buôn làng; tiếng chiêng còn vang là bản sắc còn giữ. |
-| **Góc Khám Phá** | Mỗi chiếc cồng, chiêng đều có một vị thần trú ngụ. Người Tây Nguyên tin rằng cồng chiêng càng cổ thì quyền lực của vị thần càng cao. |
+| **Góc Khám Phá** | Mỗi chiếc cồng, chiêng đều có một vị thần trú ngụ. Người Tây Nguyên tin rằng cồng chiêng càng cổ thì quyền lực của vị thần càng cao. **UNESCO:** Không gian văn hóa Cồng chiêng Tây Nguyên — Kiệt tác truyền khẩu và phi vật thể nhân loại (2005), sau chuyển thành Di sản văn hóa phi vật thể đại diện của nhân loại (2008). |
 | **Video** | https://www.youtube.com/watch?v=enE8Iy9NRw8 |
 
 ---
@@ -153,7 +153,7 @@ lehoi/
 | **Dấu hiệu nhận biết** | Mùng 10 tháng 3 Âm lịch. |
 | **Giới thiệu** | Lễ hội Đền Hùng là lễ hội duy nhất ở Việt Nam thờ cúng Quốc Tổ - người có công dựng nước. Bài hát hào hùng này gợi nhắc về truyền thuyết "Con Rồng cháu Tiên", khẳng định nguồn cội chung của mọi người dân Việt Nam dù ở bất cứ nơi đâu. |
 | **Ý nghĩa** | • **Đạo lý:** Bài học lớn nhất về lòng biết ơn: "Uống nước nhớ nguồn".<br>• **Đoàn kết:** Củng cố khối đại đoàn kết dân tộc, xem mọi người Việt là "đồng bào" (cùng sinh ra từ một bọc trứng). |
-| **Góc Khám Phá** | Tín ngưỡng thờ cúng Hùng Vương ở Phú Thọ đã được UNESCO công nhận là Di sản văn hóa phi vật thể đại diện của nhân loại vào năm 2012. |
+| **Góc Khám Phá** | Tín ngưỡng thờ cúng Hùng Vương ở Phú Thọ đã được UNESCO công nhận là Di sản văn hóa phi vật thể đại diện của nhân loại (2012). |
 
 ---
 
@@ -169,7 +169,7 @@ lehoi/
 | **Dấu hiệu nhận biết** | Hát Dân ca Quan họ. |
 | **Giới thiệu** | Hội Lim là không gian diễn xướng đặc sắc nhất của Dân ca Quan họ Bắc Ninh. Khác với các loại hình khác, Quan họ là lối hát giao duyên tinh tế, trọng tình trọng nghĩa, nơi các liền anh liền chị không chỉ hát mà còn "chơi" quan họ bằng lối ứng xử lịch thiệp, khiêm nhường. |
 | **Ý nghĩa** | • **Nghệ thuật:** Đỉnh cao của thơ ca dân gian và nghệ thuật luyến láy.<br>• **Nhân văn:** Đề cao tình người, sự thủy chung và nét thanh lịch của người Kinh Bắc ("Người ơi người ở đừng về"). |
-| **Góc Khám Phá** | Người quan họ không gọi là 'hát quan họ' mà gọi là 'chơi quan họ', thể hiện sự tinh tế, thanh lịch và coi trọng văn hóa ứng xử trong giao duyên. |
+| **Góc Khám Phá** | Người quan họ không gọi là 'hát quan họ' mà gọi là 'chơi quan họ', thể hiện sự tinh tế, thanh lịch và coi trọng văn hóa ứng xử trong giao duyên. **UNESCO:** Dân ca Quan họ Bắc Ninh — Di sản văn hóa phi vật thể đại diện của nhân loại (2009). |
 | **Video** | https://www.youtube.com/watch?v=155RebrEZOA |
 
 ---
@@ -228,6 +228,7 @@ lehoi/
 | **Đáp án** | Lễ Hội Bài Chòi |
 | **Giới thiệu** | Bài Chòi vừa là trò chơi dân gian vui nhộn, vừa là nghệ thuật diễn xướng độc đáo của miền Trung. Các "anh Hiệu" (người hô thai) sẽ dùng các làn điệu hò, vè hóm hỉnh để hô tên con bài. Người chơi ngồi trên các chòi tre cao, ai có con bài trùng khớp sẽ thắng. Đây là "món ăn tinh thần" không thể thiếu dịp đầu xuân. |
 | **Ý nghĩa** | Gìn giữ phương ngữ, nghệ thuật thơ ca dân gian và tạo không gian gắn kết cộng đồng làng xã bình dị, vui tươi. |
+| **Góc Khám Phá** | Nghệ thuật Bài Chòi Trung Bộ được UNESCO công nhận là Di sản văn hóa phi vật thể đại diện của nhân loại (2017). |
 | **Video** | https://www.youtube.com/watch?v=ywahy4ce5tQ |
 
 ---
@@ -267,7 +268,7 @@ lehoi/
 | **Đáp án** | Lễ Hội Gióng |
 | **Giới thiệu** | Lễ hội Gióng (tại đền Sóc và đền Phù Đổng) được ví như một "kịch trường dân gian" khổng lồ, nơi hàng trăm người dân địa phương cùng tham gia diễn lại trận đánh hào hùng của Thánh Gióng chống giặc Ân. Không có gươm đao thật, trận chiến được mô phỏng đầy nghệ thuật qua các nghi thức như rước kiệu, múa cờ, đánh trận giả. |
 | **Ý nghĩa** | Giáo dục lòng yêu nước nồng nàn, ý chí quật cường chống ngoại xâm và khát vọng hòa bình của dân tộc Việt Nam. |
-| **Góc Khám Phá** | Hội Gióng được ví như một "kịch trường dân gian" rộng lớn với hàng trăm vai diễn, đạo cụ, y phục quy mô, tất cả đều do chính người dân địa phương đóng vai, không cần diễn viên chuyên nghiệp. |
+| **Góc Khám Phá** | Hội Gióng được ví như một "kịch trường dân gian" rộng lớn với hàng trăm vai diễn, đạo cụ, y phục quy mô, tất cả đều do chính người dân địa phương đóng vai, không cần diễn viên chuyên nghiệp. **UNESCO:** Hội Gióng ở đền Phù Đổng và đền Sóc — Di sản văn hóa phi vật thể đại diện của nhân loại (2010). |
 | **Video** | https://www.youtube.com/watch?v=CtBdgihZVPU |
 
 ---
